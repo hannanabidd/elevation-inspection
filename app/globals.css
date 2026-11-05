@@ -1,26 +1,493 @@
 @import "tailwindcss";
 
+/* `dark:` follows [data-theme="dark"] on <html>, or on any section that is always dark. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+  Elevation Inspections, taken from the logo and business cards:
+    Elevation Green  #2BE23C   painted card edges, the peak, the stripe
+    Charcoal         #232324 to #3D3D3E   textured card stock
+    White
+
+  Contrast:  green on charcoal 9:1, OK for text.
+             green on white 1.7:1, so fills and lines only; text on green is always charcoal.
+*/
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --bg-alt: #f2f2ef;
+  --surface: #ffffff;
+  --fg: #262627;
+  --fg-muted: #5c5c60;
+  --line: rgb(38 38 39 / 0.14);
+  --line-strong: rgb(38 38 39 / 0.32);
+  --ridge: rgb(38 38 39 / 0.12);
+  --grain: 0.05;
+  --emb-hi: rgb(255 255 255 / 0.95);
+  --emb-lo: rgb(38 38 39 / 0.16);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #232324;
+  --bg-alt: #2a2a2b;
+  --surface: #303031;
+  --fg: #ffffff;
+  --fg-muted: #b9b9bb;
+  --line: rgb(255 255 255 / 0.12);
+  --line-strong: rgb(255 255 255 / 0.3);
+  --ridge: rgb(255 255 255 / 0.09);
+  --grain: 0.09;
+  --emb-hi: rgb(255 255 255 / 0.09);
+  --emb-lo: rgb(0 0 0 / 0.55);
+  color-scheme: dark;
+}
+
+@theme {
+  --color-green: #2be23c;
+  --color-green-bright: #5cec69;
+  --color-ink: #232324;
+  --color-ink-2: #2b2b2c;
+  --color-ink-3: #3d3d3e;
+  --color-paper: #f2f2ef;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-source), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-kalam), ui-serif, cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    transition:
+      background-color 0.4s var(--ease),
+      color 0.4s var(--ease);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-green);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-green);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-ink);
   }
 }
 
+/* ---------- Brand shapes ---------- */
+
+@utility chamfer {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+@utility chamfer-lg {
+  clip-path: polygon(28px 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%, 0 28px);
+}
+
+/* Paper / card-stock grain, like the textured business card. */
+@utility grain {
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: var(--grain);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Fine engineering grid */
+@utility blueprint {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Letter-spaced label, like "LEAD INSPECTOR" on the card */
+@utility label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* ---------- Highlighter + strike (animate across wrapped lines) ---------- */
+
+.hl {
+  color: var(--color-ink);
+  background-image: linear-gradient(var(--color-green), var(--color-green));
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  background-size: 0% 88%;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.12em;
+  margin: 0 -0.04em;
+  animation: hl-in 0.7s var(--ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes hl-in {
+  to {
+    background-size: 100% 88%;
+  }
+}
+
+.strike {
+  background-image: linear-gradient(var(--color-green), var(--color-green));
+  background-repeat: no-repeat;
+  background-position: 0 52%;
+  background-size: 0% 0.14em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background-size 1.1s var(--ease) 0.35s;
+}
+[data-inview="true"] .strike {
+  background-size: 100% 0.14em;
+}
+
+/* Highlighter that runs when its section scrolls into view */
+.hl-v {
+  color: var(--color-ink);
+  background-image: linear-gradient(var(--color-green), var(--color-green));
+  background-repeat: no-repeat;
+  background-position: 0 55%;
+  background-size: 100% 86%;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.1em;
+}
+.js .hl-v {
+  background-size: 0% 86%;
+  transition: background-size 0.9s var(--ease) var(--d, 300ms);
+}
+.js [data-inview="true"] .hl-v {
+  background-size: 100% 86%;
+}
+
+/* Theme switch: let the new theme spread from the toggle (see ThemeToggle) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+}
+
+/* ---------- Scroll reveals (only hidden when JS is running) ---------- */
+
+.js .rv {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.js .rv-l {
+  transform: translate3d(-48px, 0, 0);
+}
+.js .rv-r {
+  transform: translate3d(48px, 0, 0);
+}
+.js .rv-s {
+  transform: scale(0.94);
+}
+.js [data-inview="true"] .rv,
+.js .rv[data-inview="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* SVG paths with pathLength="1" draw themselves in */
+.js .draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.8s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-inview="true"] .draw {
+  stroke-dashoffset: 0;
+}
+
+/* Pop in (markers, checks) */
+.js .pop {
+  opacity: 0;
+  transform: scale(0.3);
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: var(--d, 0ms);
+}
+.js [data-inview="true"] .pop {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Hero triptych: three photos split by green diagonals ---------- */
+
+.tri {
+  --slant: 34px;
+  --gap: 6px;
+  display: flex;
+  background: var(--color-green);
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .tri {
+    --slant: 90px;
+    --gap: 10px;
+  }
+}
+.tri-panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+  transition: flex-grow 0.8s var(--ease);
+}
+.tri-panel:first-child {
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+}
+.tri-panel:last-child {
+  clip-path: polygon(var(--slant) 0, 100% 0, 100% 100%, 0 100%);
+}
+.tri-panel + .tri-panel {
+  margin-left: calc(var(--gap) - var(--slant));
+}
+.tri-media {
+  position: absolute;
+  inset: 0;
+  animation: tri-wipe 1.2s var(--ease) both;
+  animation-delay: calc(var(--i) * 220ms + 200ms);
+}
+.tri-media img {
+  animation: tri-zoom 2.6s var(--ease) both;
+  animation-delay: calc(var(--i) * 220ms + 200ms);
+  transition: transform 1.2s var(--ease);
+}
+.tri-panel:hover .tri-media img {
+  transform: scale(1.06);
+}
+@keyframes tri-wipe {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes tri-zoom {
+  from {
+    scale: 1.3;
+  }
+  to {
+    scale: 1;
+  }
+}
+@media (hover: hover) {
+  .tri:hover .tri-panel {
+    flex-grow: 0.85;
+  }
+  .tri .tri-panel:hover {
+    flex-grow: 1.5;
+  }
+  .hero:has([data-w="1"]:hover) .tri-panel[data-p="1"],
+  .hero:has([data-w="2"]:hover) .tri-panel[data-p="2"],
+  .hero:has([data-w="3"]:hover) .tri-panel[data-p="3"] {
+    flex-grow: 1.5;
+  }
+}
+
+/* Fade-up used by the hero on load */
+.load-up {
+  animation: load-up 1s var(--ease) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes load-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hand-drawn annotation (drawn after its photo appears).
+   Pixel dash because non-scaling strokes measure dashes in screen space. */
+.annot {
+  stroke-dasharray: 3000;
+  stroke-dashoffset: 3000;
+  animation: annot 1.1s var(--ease) forwards;
+  animation-delay: var(--d, 1600ms);
+}
+@keyframes annot {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Marquee ---------- */
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---------- Pulsing hotspot ring ---------- */
+
+.pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse 2.2s ease-out infinite;
+}
+@keyframes pulse {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+
+/* Falling water drips in the cabin diagram */
+.drip {
+  stroke-dasharray: 6 14;
+  animation: drip 0.9s linear infinite;
+}
+@keyframes drip {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+/* Gentle float for the membership card */
+.float {
+  animation: float 7s ease-in-out infinite;
+}
+@keyframes float {
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+/* Scroll progress line under the header */
+.progress {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+@supports (animation-timeline: scroll()) {
+  .progress {
+    animation: progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Range slider (cabin "time" control) */
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+.range::-webkit-slider-runnable-track {
+  height: 6px;
+  background: linear-gradient(90deg, var(--color-green) var(--p, 0%), var(--line-strong) var(--p, 0%));
+}
+.range::-moz-range-track {
+  height: 6px;
+  background: var(--line-strong);
+}
+.range::-moz-range-progress {
+  height: 6px;
+  background: var(--color-green);
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30px;
+  height: 30px;
+  margin-top: -12px;
+  background: var(--color-green);
+  border: 3px solid var(--color-ink);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  transform: scale(1.25);
+}
+.range::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  background: var(--color-green);
+  border: 3px solid var(--color-ink);
+  border-radius: 0;
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .marquee {
+    animation: none;
+  }
 }
