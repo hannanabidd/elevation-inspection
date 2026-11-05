@@ -1,4 +1,3 @@
-import { PeakMark } from "@/components/brand";
 import { InView } from "@/components/motion";
 import { ArrowLink, Button, Label } from "@/components/ui";
 
@@ -32,9 +31,6 @@ export function ManagersAndPricing() {
         </InView>
 
         <InView className="relative bg-green px-4 py-20 text-ink max-lg:[clip-path:polygon(0_6%,100%_0,100%_100%,0_100%)] max-lg:-mt-8 max-lg:pt-28 sm:px-6 lg:-ml-[9%] lg:py-28 lg:pr-10 lg:pl-[17%] lg:[clip-path:polygon(16%_0,100%_0,100%_100%,0_100%)]">
-          <PeakMark
-            className="pointer-events-none absolute -right-[6%] -bottom-[14%] w-[52%] text-ink/[0.07]"
-          />
           <div className="relative max-w-[34rem]">
             <div className="rv">
               <div className="mb-6">

@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import type { ComponentType, ReactNode, SVGProps } from "react";
-import { PeakMark } from "@/components/brand";
+import type { ReactNode } from "react";
 import { ContactForm } from "@/components/contact/contact-form";
-import { Clock, Mail, MapPin, Phone } from "@/components/icons";
+import { Mail, MapIcon, MapPin, Phone, type IconType } from "@/components/icons";
 import { InView } from "@/components/motion";
 import { PageHero } from "@/components/page-hero";
 import { ArrowLink, Button, Container, Label } from "@/components/ui";
-import { pending, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Contact Elevation Inspections in Sevierville, TN. Call (865) 801-3331 or email connect@ElevationTNInspections.com.",
+    "Contact Elevation Inspections in Sevierville, TN. Call (865) 801-3331 or email connect@elevationtninspections.com.",
 };
 
 function Row({
@@ -20,7 +19,7 @@ function Row({
   children,
   d,
 }: {
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  icon: IconType;
   label: string;
   children: ReactNode;
   d: number;
@@ -69,15 +68,11 @@ export default function ContactPage() {
                 Get directions<span className="sr-only"> (opens Google Maps)</span>
               </a>
             </Row>
-            <Row icon={PeakMarkIcon} label="Service area" d={240}>
+            <Row icon={MapIcon} label="Service area" d={240}>
               <p>
                 Sevier County, including the City of Sevierville, City of Pigeon Forge and City of
                 Gatlinburg, and the surrounding areas.
               </p>
-            </Row>
-            <Row icon={Clock} label="Hours" d={320}>
-              {/* TODO: office hours from Rebekah */}
-              <p>{pending.hours}</p>
             </Row>
           </InView>
 
@@ -93,7 +88,7 @@ export default function ContactPage() {
                   className="map absolute inset-0 size-full"
                 />
                 <div className="pointer-events-none absolute bottom-4 left-4 flex items-center gap-3 bg-ink py-2.5 pr-4 pl-3 text-white shadow-lg">
-                  <PeakMark className="size-6 text-green" />
+                  <MapPin className="size-5 text-green" />
                   <span className="font-display text-sm font-bold">{site.addressLines[0]}</span>
                 </div>
               </div>
@@ -115,7 +110,6 @@ export default function ContactPage() {
 
           <InView as="aside" className="lg:col-span-4">
             <div className="rv relative overflow-hidden bg-green p-8 text-ink lg:p-10">
-              <PeakMark className="pointer-events-none absolute -right-10 -bottom-12 w-48 text-ink/[0.08]" />
               <p className="label text-ink/70">Register</p>
               <span aria-hidden="true" className="mt-3 block h-[3px] w-16 bg-ink" />
               <p className="relative mt-6 font-display text-[1.7rem] leading-[1.1] font-extrabold uppercase">
@@ -138,8 +132,4 @@ export default function ContactPage() {
       </section>
     </>
   );
-}
-
-function PeakMarkIcon(props: SVGProps<SVGSVGElement>) {
-  return <PeakMark className={props.className} />;
 }

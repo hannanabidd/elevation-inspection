@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { PeakMark } from "@/components/brand";
 import { CountUp, InView } from "@/components/motion";
 import { Container, Label } from "@/components/ui";
 import deckAfter from "@/public/images/deck-after.jpg";
@@ -10,7 +9,7 @@ import deckAfter from "@/public/images/deck-after.jpg";
 */
 export function RealStory() {
   return (
-    <section className="relative overflow-hidden bg-bg pt-28 pb-24 lg:pt-36 lg:pb-32">
+    <section className="relative overflow-hidden bg-bg pt-16 pb-20 sm:pt-24 lg:pt-36 lg:pb-32">
       <Container className="grid items-center gap-16 lg:grid-cols-12 lg:gap-14">
         <InView className="relative lg:col-span-6" threshold={0.25}>
           <div className="relative mx-auto aspect-[4/5] max-w-[34rem] lg:max-w-none">
@@ -41,10 +40,6 @@ export function RealStory() {
               Real property
             </span>
 
-            <PeakMark
-              className="pop absolute right-[8%] -bottom-[6%] w-[30%] text-green drop-shadow-[0_12px_24px_rgb(0_0_0/0.35)]"
-              style={{ ["--d" as string]: "500ms" }}
-            />
           </div>
         </InView>
 

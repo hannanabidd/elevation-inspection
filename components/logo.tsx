@@ -10,11 +10,12 @@ import logoWhite from "@/public/brand/logo-white.png";
 export function Logo({
   className = "h-11 w-auto",
   variant = "auto",
-  priority = false,
+  eager = false,
 }: {
   className?: string;
   variant?: "auto" | "white";
-  priority?: boolean;
+  /* Load right away (header logo); replaces the `priority` prop deprecated in Next 16 */
+  eager?: boolean;
 }) {
   const sizes = "(min-width: 1024px) 200px, 150px";
   return (
@@ -24,7 +25,7 @@ export function Logo({
           src={logoDark}
           alt="Elevation Inspections"
           className={`${className} dark:hidden`}
-          priority={priority}
+          loading={eager ? "eager" : undefined}
           sizes={sizes}
         />
       )}
@@ -33,7 +34,7 @@ export function Logo({
         alt={variant === "auto" ? "" : "Elevation Inspections"}
         aria-hidden={variant === "auto" ? true : undefined}
         className={`${className} ${variant === "auto" ? "hidden dark:block" : ""}`}
-        priority={priority}
+        loading={eager ? "eager" : undefined}
         sizes={sizes}
       />
     </Link>

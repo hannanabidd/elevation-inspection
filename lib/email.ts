@@ -6,12 +6,12 @@
   Environment:
     RESEND_API_KEY   API key from Resend
     EMAIL_FROM       Verified sender, e.g. "Elevation Inspections <connect@elevationtninspections.com>"
-    EMAIL_TO         Where submissions go (defaults to connect@ElevationTNInspections.com)
+    EMAIL_TO         Where submissions go (defaults to connect@elevationtninspections.com)
 
   Without RESEND_API_KEY in development, emails are printed to the terminal instead.
 */
 
-export const inbox = process.env.EMAIL_TO ?? "connect@ElevationTNInspections.com";
+export const inbox = process.env.EMAIL_TO ?? "connect@elevationtninspections.com";
 
 type Email = {
   to: string;

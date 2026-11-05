@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { PeakMark } from "@/components/brand";
-import { Check, Mail, Phone } from "@/components/icons";
+import { CalendarCheck, Check, ClipboardText, Mail, Phone, PhoneCall } from "@/components/icons";
 import { PageHero } from "@/components/page-hero";
 import { RegisterForm } from "@/components/register/register-form";
 import { Container } from "@/components/ui";
@@ -13,9 +12,9 @@ export const metadata: Metadata = {
 };
 
 const next = [
-  { title: "You register", text: "It takes about two minutes." },
-  { title: "We reach out", text: `Within ${pending.followUp}, to confirm your details and start your membership.` },
-  { title: "Two inspections a year", text: "Reviewed by our engineering team." },
+  { icon: ClipboardText, title: "You register", text: "It takes about two minutes." },
+  { icon: PhoneCall, title: "We reach out", text: `Within ${pending.followUp}, to confirm your details and start your membership.` },
+  { icon: CalendarCheck, title: "Two inspections a year", text: "Reviewed by our engineering team." },
 ];
 
 export default function RegisterPage() {
@@ -46,13 +45,13 @@ export default function RegisterPage() {
           {/* What happens next */}
           <aside className="lg:col-span-4">
             <div data-theme="dark" className="grain relative overflow-hidden bg-ink p-8 text-fg lg:sticky lg:top-32">
-              <PeakMark className="pointer-events-none absolute -right-8 -bottom-10 w-40 text-white/[0.04]" />
               <p className="label text-muted">What happens next</p>
               <ol className="mt-7 space-y-7">
                 {next.map((s, i) => (
                   <li key={s.title} className="flex gap-4">
-                    <span className="flex size-9 shrink-0 items-center justify-center bg-green font-display text-sm font-extrabold text-ink">
-                      {i + 1}
+                    <span className="flex size-10 shrink-0 items-center justify-center bg-green text-ink">
+                      <s.icon className="size-5" />
+                      <span className="sr-only">Step {i + 1}:</span>
                     </span>
                     <div>
                       <p className="font-display font-extrabold uppercase">{s.title}</p>

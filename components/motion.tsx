@@ -5,7 +5,6 @@ import {
   useRef,
   type CSSProperties,
   type ElementType,
-  type PointerEvent,
   type ReactNode,
 } from "react";
 
@@ -110,53 +109,5 @@ export function CountUp({
     <span ref={ref} className={`tabular-nums ${className ?? ""}`}>
       {text(to)}
     </span>
-  );
-}
-
-/* Tilts toward the pointer, with a moving glare. */
-export function Tilt({
-  className,
-  children,
-  max = 10,
-}: {
-  className?: string;
-  children: ReactNode;
-  max?: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const move = (e: PointerEvent<HTMLDivElement>) => {
-    const el = ref.current;
-    if (!el || e.pointerType !== "mouse") return;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width;
-    const y = (e.clientY - r.top) / r.height;
-    el.style.setProperty("--rx", `${(0.5 - y) * max}deg`);
-    el.style.setProperty("--ry", `${(x - 0.5) * max * 1.4}deg`);
-    el.style.setProperty("--gx", `${x * 100}%`);
-    el.style.setProperty("--gy", `${y * 100}%`);
-  };
-  const leave = () => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.setProperty("--rx", "0deg");
-    el.style.setProperty("--ry", "0deg");
-  };
-
-  return (
-    <div
-      ref={ref}
-      onPointerMove={move}
-      onPointerLeave={leave}
-      className={className}
-      style={{
-        transform: "perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))",
-        transition: "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
-        transformStyle: "preserve-3d",
-      }}
-    >
-      {children}
-    </div>
   );
 }

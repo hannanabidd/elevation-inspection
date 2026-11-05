@@ -1,8 +1,8 @@
 import Image, { type StaticImageData } from "next/image";
 import type { CSSProperties } from "react";
 import { Ridges } from "@/components/brand";
-import { Check } from "@/components/icons";
-import { Button, Container } from "@/components/ui";
+import { InView } from "@/components/motion";
+import { Container, Label } from "@/components/ui";
 import deckAfter from "@/public/images/deck-after.jpg";
 import deckBefore from "@/public/images/deck-before.jpg";
 import fourBolts from "@/public/images/four-bolts.jpg";
@@ -49,60 +49,30 @@ function This({ n, delay }: { n: number; delay: number }) {
   );
 }
 
-function Intro() {
+/*
+  The deck story, right under the banner: headline + three photos split by green diagonals.
+  Its animations wait until it scrolls into view (play-on-view).
+*/
+export function DeckStory() {
   return (
-    <>
-      <p className="max-w-md text-lg leading-relaxed text-muted lg:text-[1.15rem]">
-        Twice-a-year structural inspections for short-term rentals in Sevier County, backed by a
-        team of engineers.
-      </p>
-      <div className="mt-7 grid grid-cols-2 gap-3 sm:flex">
-        <Button href="/register" arrow className="max-sm:px-4">
-          Register Now
-        </Button>
-        <Button href="/pricing" variant="outline" className="max-sm:px-4">
-          See Pricing
-        </Button>
-      </div>
-      <p className="mt-4 flex items-center gap-2 text-sm text-muted">
-        <Check className="size-4 text-fg" />
-        No payment is needed today.
-      </p>
-    </>
-  );
-}
-
-export function Hero() {
-  return (
-    <section className="hero grain relative overflow-hidden bg-bg">
+    <InView as="section" className="hero play-on-view grain relative overflow-hidden bg-bg" threshold={0.2}>
       <Ridges className="pointer-events-none absolute top-0 right-0 h-[60%] w-[75%] opacity-80" />
 
-      <Container className="relative pt-8 pb-7 sm:pt-12 lg:pt-14 lg:pb-12">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-8">
-            <p className="label load-up text-muted" style={d(0)}>
-              Sevier County, TN
-              <span className="hidden sm:inline">
-                <span className="mx-2 text-green">/</span> Short-term rentals
-              </span>
-            </p>
-            <h1
-              className="load-up mt-5 text-[clamp(1.85rem,6.3vw,5rem)] leading-[1.02] font-extrabold tracking-[-0.025em] uppercase"
-              style={d(80)}
-            >
-              Don&rsquo;t let <This n={1} delay={700} /> turn into <This n={2} delay={950} />{" "}
-              because of <This n={3} delay={1200} />.
-            </h1>
-          </div>
-          <div className="load-up hidden lg:col-span-4 lg:block lg:pb-3" style={d(300)}>
-            <Intro />
-          </div>
+      <Container className="relative pt-20 pb-9 sm:pt-24 lg:pt-28 lg:pb-14">
+        <div className="load-up" style={d(0)}>
+          <Label>The problem, in one look</Label>
         </div>
+        <h2
+          className="load-up max-w-[68rem] text-[clamp(1.85rem,5.6vw,4.6rem)] leading-[1.18] font-extrabold tracking-[-0.025em] uppercase"
+          style={d(80)}
+        >
+          Don&rsquo;t let <This n={1} delay={500} /> turn into <This n={2} delay={750} />{" "}
+          because of <This n={3} delay={1000} />.
+        </h2>
       </Container>
 
       {/* Three photos, split by green diagonals */}
-      {/* Short on phones so the buttons below still land in the first screen */}
-      <div className="tri h-[220px] sm:h-[clamp(240px,40vh,420px)] lg:h-[clamp(260px,44vh,500px)]">
+      <div className="tri h-[230px] sm:h-[clamp(260px,42vh,440px)] lg:h-[clamp(300px,50vh,520px)]">
         {photos.map((p, i) => (
           <figure
             key={p.caption}
@@ -115,7 +85,6 @@ export function Hero() {
                 src={p.src}
                 alt={p.alt}
                 fill
-                priority
                 sizes="(min-width: 768px) 42vw, 40vw"
                 className="object-cover"
                 style={{ objectPosition: p.position }}
@@ -147,11 +116,7 @@ export function Hero() {
           </figure>
         ))}
       </div>
-
-      <Container className="relative py-8 lg:hidden">
-        <Intro />
-      </Container>
-    </section>
+    </InView>
   );
 }
 
@@ -162,7 +127,7 @@ function BoltsNote() {
       <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 size-full">
         <path
           className="annot"
-          style={d(1900)}
+          style={d(1700)}
           d="M24 30 C 28 9, 70 6, 79 25 C 88 45, 82 80, 53 85 C 27 90, 13 70, 15 48 C 16 35, 24 24, 37 20"
           fill="none"
           stroke="var(--color-green)"
@@ -173,7 +138,7 @@ function BoltsNote() {
       </svg>
       <span
         className="load-up absolute top-[7%] right-[5%] -rotate-6 font-hand text-[1.7rem] leading-none font-bold text-green"
-        style={d(2600)}
+        style={d(2400)}
       >
         the fix
       </span>

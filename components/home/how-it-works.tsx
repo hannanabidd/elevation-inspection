@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { PeakMark } from "@/components/brand";
 import { InView } from "@/components/motion";
 import { Button, Container, Label } from "@/components/ui";
 
@@ -82,11 +81,6 @@ export function HowItWorks() {
               strokeLinejoin="round"
             />
           </svg>
-          <PeakMark
-            className="pop absolute top-[-6px] left-[94%] w-9 -translate-x-1/2 -translate-y-full text-green"
-            style={delay(1500)}
-          />
-
           {/* Waypoint markers, positioned on the full-width profile */}
           <div aria-hidden="true" className="absolute inset-x-0 top-0 h-[330px]">
             {waypoints.map(([x, y], i) => (

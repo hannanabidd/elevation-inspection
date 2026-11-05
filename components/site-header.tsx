@@ -4,8 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { mainNav, site } from "@/lib/site";
-import { PeakMark } from "./brand";
-import { Close, Mail, Menu, Phone } from "./icons";
+import { Close, Mail, MapPin, Menu, Phone } from "./icons";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 import { Button, Container } from "./ui";
@@ -29,23 +28,24 @@ export function SiteHeader() {
   return (
     <>
       {/* Top bar: always charcoal, like the card front */}
-      <div data-theme="dark" className="bg-ink text-[0.8rem] text-muted">
+      {/* White text; links fade to grey on hover */}
+      <div data-theme="dark" className="bg-ink text-[0.8rem] text-white">
         <Container className="flex h-9 items-center justify-between gap-4 whitespace-nowrap">
           <p className="flex items-center gap-2 truncate">
-            <PeakMark className="size-3 shrink-0 text-green" />
+            <MapPin className="size-3.5 shrink-0 text-green" />
             Serving Sevier County, TN
           </p>
           <div className="flex items-center gap-6">
             <a
               href={site.emailHref}
-              className="hidden items-center gap-2 hover:text-white md:inline-flex"
+              className="hidden items-center gap-2 transition-colors hover:text-muted md:inline-flex"
             >
               <Mail className="size-3.5 text-green" />
               {site.email}
             </a>
             <a
               href={site.phoneHref}
-              className="inline-flex items-center gap-2 font-semibold text-white hover:text-green"
+              className="inline-flex items-center gap-2 font-semibold transition-colors hover:text-muted"
             >
               <Phone className="size-3.5 text-green" />
               {site.phone}
@@ -56,7 +56,7 @@ export function SiteHeader() {
 
       <header className="sticky top-0 z-50 border-b border-line bg-bg/90 backdrop-blur-md">
         <Container className="flex h-[4.25rem] items-center justify-between gap-3 lg:h-[5.25rem]">
-          <Logo className="h-8 w-auto min-[380px]:h-9 lg:h-12" priority />
+          <Logo className="h-8 w-auto min-[380px]:h-9 lg:h-12" eager />
 
           <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
             {mainNav.map((item) => {
@@ -145,7 +145,7 @@ export function SiteHeader() {
                       className="flex items-center justify-between py-5 font-display text-3xl font-extrabold uppercase"
                     >
                       {item.label}
-                      {pathname === item.href && <PeakMark className="size-6 text-green" />}
+                      {pathname === item.href && <span aria-hidden="true" className="size-3 bg-green" />}
                     </Link>
                   </li>
                 ))}

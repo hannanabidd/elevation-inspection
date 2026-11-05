@@ -216,10 +216,10 @@ export function CabinDiagram() {
       {/* Time control */}
       <div className="mt-6">
         <div className="flex justify-between gap-4">
-          <span className={`label transition-colors ${missed ? "text-muted" : "text-fg"}`}>
+          <span className={`label transition-colors max-sm:text-[0.62rem] max-sm:tracking-[0.12em] ${missed ? "text-muted" : "text-fg"}`}>
             Caught early
           </span>
-          <span className={`label text-right transition-colors ${missed ? "text-fg" : "text-muted"}`}>
+          <span className={`label text-right transition-colors max-sm:text-[0.62rem] max-sm:tracking-[0.12em] ${missed ? "text-fg" : "text-muted"}`}>
             Missed for a few years
           </span>
         </div>

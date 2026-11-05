@@ -1,10 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
-import { PeakMark, Ridges } from "./brand";
+import { Ridges } from "./brand";
 import { Container, Label } from "./ui";
 
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as CSSProperties;
 
-/* Inner-page header: big title on the left, the business card's dark slash + peak on the right. */
+/* Inner-page header: big title on the left, the business card's dark slash on the right. */
 export function PageHero({
   label,
   title,
@@ -28,10 +28,6 @@ export function PageHero({
         <div
           className="slide-in-r grain absolute inset-0 bg-ink [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]"
           style={d(260)}
-        />
-        <PeakMark
-          className="load-up absolute right-[20%] bottom-[14%] w-[36%] text-green"
-          style={d(800)}
         />
       </div>
 

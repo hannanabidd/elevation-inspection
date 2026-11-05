@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { PeakMark, Ridges } from "@/components/brand";
+import { Ridges } from "@/components/brand";
+import { CheckCircle, ClipboardText, HardHat, HouseLine, UsersThree } from "@/components/icons";
 import { Timeline } from "@/components/about/timeline";
 import { CtaBand } from "@/components/cta-band";
 import { InView } from "@/components/motion";
@@ -33,7 +34,7 @@ export default function AboutPage() {
       {/* Our story */}
       <section className="relative bg-bg py-20 lg:py-28">
         <Container>
-          <InView className="grid gap-10 lg:grid-cols-12">
+          <InView className="grid gap-2 lg:grid-cols-12 lg:gap-10">
             <div className="rv lg:col-span-3">
               <Label>Our story</Label>
             </div>
@@ -125,6 +126,7 @@ export default function AboutPage() {
           <InView className="relative lg:col-span-6" threshold={0.3}>
             <div className="relative grid gap-4">
               <div className="rv rv-r chamfer-lg relative bg-ink-3 p-7">
+                <ClipboardText className="absolute top-7 right-7 size-7 text-green" />
                 <p className="label text-muted">Inspects</p>
                 <Image src={logoWhite} alt="Elevation Inspections" sizes="220px" className="mt-4 h-12 w-auto" />
                 <p className="mt-4 text-muted">Two inspections a year, every six months.</p>
@@ -133,6 +135,7 @@ export default function AboutPage() {
                 <span className="flex h-10 w-1 bg-green" />
               </div>
               <div className="rv rv-r chamfer-lg relative bg-ink-3 p-7" style={d(300)}>
+                <HardHat className="absolute top-7 right-7 size-7 text-green" />
                 <p className="label text-muted">Reviews</p>
                 {/* TODO: swap for the Elevation Engineering & Design logo when it arrives */}
                 <p className="mt-4 font-display text-2xl font-extrabold uppercase">{site.sisterCompany}</p>
@@ -142,7 +145,7 @@ export default function AboutPage() {
                 <span className="flex h-10 w-1 bg-green" />
               </div>
               <div className="rv rv-s relative flex items-center gap-5 bg-green p-7 text-ink" style={d(600)}>
-                <PeakMark className="size-10 shrink-0" />
+                <CheckCircle className="size-10 shrink-0" />
                 <div>
                   <p className="label text-ink/70">You get</p>
                   <p className="mt-1 font-display text-xl font-extrabold uppercase">Clear answers, not a referral</p>
@@ -172,22 +175,26 @@ export default function AboutPage() {
             <div className="mt-4 grid gap-6 md:grid-cols-2">
               {[
                 {
+                  icon: HouseLine,
                   title: "Short-term rental owners",
                   text: "in Sevier County, including Sevierville, Pigeon Forge and Gatlinburg, plus the surrounding areas.",
                   link: { href: "/register", label: "Register your property" },
                 },
                 {
+                  icon: UsersThree,
                   title: "Property maintenance and management companies",
                   text: "who want the owners they work with to be protected.",
                   link: { href: "/contact", label: "Talk to us about referrals" },
                 },
-              ].map((c, i) => (
+              ].map(({ icon: Icon, ...c }, i) => (
                 <div
                   key={c.title}
                   className="rv chamfer-lg relative flex flex-col bg-surface p-8 sm:p-10"
                   style={d(120 + i * 140)}
                 >
-                  <span className="font-display text-5xl font-extrabold text-line-strong">0{i + 1}</span>
+                  <span className="flex size-14 items-center justify-center bg-green text-ink">
+                    <Icon className="size-7" />
+                  </span>
                   <p className="mt-6 font-display text-[1.7rem] leading-tight font-extrabold uppercase">{c.title}</p>
                   <p className="mt-3 flex-1 text-lg leading-relaxed text-muted">{c.text}</p>
                   <div className="mt-8">

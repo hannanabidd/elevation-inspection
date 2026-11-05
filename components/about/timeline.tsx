@@ -1,11 +1,11 @@
-import { PeakMark } from "@/components/brand";
+import { Drop, EyeSlash, PhoneCall, WarningDiamond } from "@/components/icons";
 import { InView } from "@/components/motion";
 
 const stops = [
-  { title: "It starts small", text: "Clogged gutters, downspouts dumping water at the foundation, poor drainage, a few missing bolts." },
-  { title: "Nobody catches it", text: "Problems that cost very little to fix, if someone catches them early." },
-  { title: "Something fails", text: "A cracked foundation, sagging framing or a failing deck." },
-  { title: "The call after", text: "By the time engineers are brought in, it’s expensive and extensive." },
+  { icon: Drop, title: "It starts small", text: "Clogged gutters, downspouts dumping water at the foundation, poor drainage, a few missing bolts." },
+  { icon: EyeSlash, title: "Nobody catches it", text: "Problems that cost very little to fix, if someone catches them early." },
+  { icon: WarningDiamond, title: "Something fails", text: "A cracked foundation, sagging framing or a failing deck." },
+  { icon: PhoneCall, title: "The call after", text: "By the time engineers are brought in, it’s expensive and extensive." },
 ];
 
 /*
@@ -36,7 +36,6 @@ export function Timeline() {
         {/* "Now": twice a year, before the damage */}
         <div className="tl-pin absolute top-0 z-10 -translate-x-1/2 text-center">
           <span className="inline-flex items-center gap-2 bg-green px-3 py-1.5 font-display text-[0.68rem] font-bold tracking-[0.16em] whitespace-nowrap text-ink uppercase">
-            <PeakMark className="size-3.5" />
             Now: before the damage
           </span>
           <span aria-hidden="true" className="mx-auto mt-2 block h-12 w-0.5 bg-green" />
@@ -52,7 +51,10 @@ export function Timeline() {
         <ol className="mt-12 grid grid-cols-4 gap-8">
           {stops.map((s, i) => (
             <li key={s.title} className="rv" style={{ ["--d" as string]: `${200 + i * 120}ms` }}>
-              <p className="font-display text-sm font-extrabold text-muted">0{i + 1}</p>
+              <p className="flex items-center gap-3">
+                <s.icon className={`size-7 ${i === 0 ? "text-fg" : "text-muted"}`} />
+                <span className="font-display text-sm font-extrabold text-muted">0{i + 1}</span>
+              </p>
               <p className="mt-2 font-display text-lg font-extrabold uppercase">{s.title}</p>
               <p className="mt-2 leading-relaxed text-muted">{s.text}</p>
             </li>
@@ -71,7 +73,7 @@ export function Timeline() {
             />
             {i === 0 && (
               <span className="mb-2 inline-flex items-center gap-2 bg-green px-2.5 py-1 font-display text-[0.62rem] font-bold tracking-[0.16em] text-ink uppercase">
-                <PeakMark className="size-3" /> Now: before the damage
+                Now: before the damage
               </span>
             )}
             {i === 3 && (
@@ -79,7 +81,10 @@ export function Timeline() {
                 After: the old call
               </span>
             )}
-            <p className="font-display text-lg font-extrabold uppercase">{s.title}</p>
+            <p className="flex items-center gap-2.5 font-display text-lg font-extrabold uppercase">
+              <s.icon className="size-5 shrink-0" />
+              {s.title}
+            </p>
             <p className="mt-1.5 leading-relaxed text-muted">{s.text}</p>
           </li>
         ))}

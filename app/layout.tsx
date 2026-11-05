@@ -43,12 +43,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${montserrat.variable} ${sourceSans.variable} ${kalam.variable} antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="flex min-h-screen flex-col">
+      {/* Browser extensions (e.g. ColorZilla) add attributes to <body> before React loads */}
+      <body suppressHydrationWarning className="flex min-h-screen flex-col">
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

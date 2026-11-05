@@ -1,6 +1,6 @@
 import type { ReactNode, Ref } from "react";
 import { site } from "@/lib/site";
-import { ArrowRight } from "./icons";
+import { ArrowRight, WarningCircle } from "./icons";
 
 export const inputClass =
   "block w-full border-[1.5px] border-line-strong bg-bg px-4 py-3.5 text-[1.05rem] text-fg transition-colors placeholder:text-muted/70 hover:border-fg/60 focus:border-green focus:outline-none aria-[invalid=true]:border-danger";
@@ -18,7 +18,7 @@ function FieldError({ id, error }: { id: string; error?: string }) {
   if (!error) return null;
   return (
     <p id={`${id}-error`} className="mt-2 flex items-start gap-2 text-[0.95rem] font-semibold text-danger">
-      <span aria-hidden="true" className="mt-[0.3em] block size-2 shrink-0 rotate-45 bg-danger" />
+      <WarningCircle className="mt-[0.15em] size-[1.1em] shrink-0" />
       {error}
     </p>
   );
@@ -216,7 +216,8 @@ export function ErrorSummary({
       role="alert"
       className="mb-10 border-l-4 border-danger bg-danger/10 p-5 focus:outline-none sm:p-6"
     >
-      <p className="font-display font-extrabold uppercase">
+      <p className="flex items-center gap-2.5 font-display font-extrabold uppercase">
+        <WarningCircle className="size-6 shrink-0 text-danger" />
         {message ? "We couldn’t send that" : "A few details need fixing"}
       </p>
       {message && <p className="mt-2">{message}</p>}
@@ -242,7 +243,7 @@ export function SubmitButton({ pending, children }: { pending: boolean; children
       type="submit"
       disabled={pending}
       aria-disabled={pending}
-      className="group/btn chamfer relative inline-flex h-14 w-full items-center justify-center gap-3 bg-green px-8 font-display text-[0.85rem] font-bold tracking-[0.16em] text-ink uppercase transition-colors hover:bg-green-bright disabled:cursor-progress disabled:opacity-80 sm:w-auto"
+      className="group/btn chamfer relative inline-flex h-14 w-full items-center justify-center gap-3 bg-green px-5 font-display text-[0.8rem] font-bold tracking-[0.12em] whitespace-nowrap text-ink uppercase sm:px-8 sm:text-[0.85rem] sm:tracking-[0.16em] transition-colors hover:bg-green-bright disabled:cursor-progress disabled:opacity-80 sm:w-auto"
     >
       {pending ? (
         <>

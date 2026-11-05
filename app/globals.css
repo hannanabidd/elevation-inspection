@@ -151,7 +151,7 @@
   background-image: linear-gradient(var(--color-green), var(--color-green));
   background-repeat: no-repeat;
   background-position: 0 50%;
-  background-size: 0% 88%;
+  background-size: 0% 80%;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   padding: 0 0.12em;
@@ -161,7 +161,7 @@
 }
 @keyframes hl-in {
   to {
-    background-size: 100% 88%;
+    background-size: 100% 80%;
   }
 }
 
@@ -378,6 +378,44 @@ body {
   }
 }
 
+/* Home banner photo settles into place */
+.photo-in {
+  animation: photo-in 1.6s var(--ease) both;
+}
+@keyframes photo-in {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+/* Home banner: card-back panel slides in from the left, the peak rises into place */
+.slide-in-l {
+  animation: slide-in-l 1.1s var(--ease) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes slide-in-l {
+  from {
+    transform: translateX(-105%);
+  }
+}
+.peak-rise {
+  animation: peak-rise 1.3s var(--ease) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes peak-rise {
+  from {
+    opacity: 0;
+    transform: translateY(35%);
+  }
+}
+
+/* Load-style animations that wait until their section scrolls into view */
+.js .play-on-view:not([data-inview="true"]) *,
+.js .play-on-view:not([data-inview="true"]) *::before,
+.js .play-on-view:not([data-inview="true"]) *::after {
+  animation-play-state: paused;
+}
+
 /* Card-back panel sliding in from the right edge (inner page headers) */
 .slide-in-r {
   animation: slide-in-r 1.1s var(--ease) both;
@@ -445,7 +483,7 @@ body {
   transition: transform 0.4s var(--ease);
 }
 .faq[open] .faq-icon {
-  transform: rotate(45deg);
+  transform: rotate(180deg);
 }
 
 /* ---------- Marquee ---------- */
@@ -490,16 +528,6 @@ body {
 @keyframes drip {
   to {
     stroke-dashoffset: -20;
-  }
-}
-
-/* Gentle float for the membership card */
-.float {
-  animation: float 7s ease-in-out infinite;
-}
-@keyframes float {
-  50% {
-    translate: 0 -10px;
   }
 }
 
