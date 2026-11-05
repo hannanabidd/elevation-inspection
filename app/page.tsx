@@ -1,5 +1,5 @@
+import { CtaBand } from "@/components/cta-band";
 import { Engineers } from "@/components/home/engineers";
-import { FinalCta } from "@/components/home/final-cta";
 import { Hero } from "@/components/home/hero";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { Included } from "@/components/home/included";
@@ -19,7 +19,11 @@ export default function Home() {
       <Engineers />
       <Included />
       <ManagersAndPricing />
-      <FinalCta />
+      <CtaBand
+        lead="The Difference is"
+        accent="Knowing."
+        text="Catch it early, fix it small. Register today and our team will reach out to get you set up."
+      />
     </>
   );
 }

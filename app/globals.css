@@ -25,6 +25,7 @@
   --grain: 0.05;
   --emb-hi: rgb(255 255 255 / 0.95);
   --emb-lo: rgb(38 38 39 / 0.16);
+  --danger: #c22a1f;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
@@ -41,6 +42,7 @@
   --grain: 0.09;
   --emb-hi: rgb(255 255 255 / 0.09);
   --emb-lo: rgb(0 0 0 / 0.55);
+  --danger: #ff8f85;
   color-scheme: dark;
 }
 
@@ -61,6 +63,7 @@
   --color-muted: var(--fg-muted);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
+  --color-danger: var(--danger);
   --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-source), ui-sans-serif, system-ui, sans-serif;
   --font-hand: var(--font-kalam), ui-serif, cursive;
@@ -242,6 +245,19 @@ body {
   stroke-dashoffset: 0;
 }
 
+/* Draws on mount (no scroll trigger), e.g. the form success check */
+.draw-now {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-now 0.9s var(--ease) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes draw-now {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
 /* Pop in (markers, checks) */
 .js .pop {
   opacity: 0;
@@ -360,6 +376,76 @@ body {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+/* Card-back panel sliding in from the right edge (inner page headers) */
+.slide-in-r {
+  animation: slide-in-r 1.1s var(--ease) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes slide-in-r {
+  from {
+    transform: translateX(105%);
+  }
+}
+
+/* About page timeline: the "Now" pin slides back from "after" to "before" */
+.tl-pin {
+  left: 12.5%;
+  transition: left 1.9s var(--ease) 0.5s;
+}
+.js .tl-pin {
+  left: 87.5%;
+}
+.js [data-inview="true"] .tl-pin {
+  left: 12.5%;
+}
+.tl-arrow {
+  transform-origin: right center;
+  transition: transform 1.9s var(--ease) 0.5s;
+}
+.js .tl-arrow {
+  transform: scaleX(0);
+}
+.js [data-inview="true"] .tl-arrow {
+  transform: scaleX(1);
+}
+
+/* Google map, recolored to sit in the brand (grayscale; inverted for dark mode) */
+.map {
+  filter: grayscale(1) contrast(1.05);
+}
+[data-theme="dark"] .map {
+  filter: grayscale(1) invert(0.9) contrast(0.95);
+}
+
+/* ---------- FAQ accordion ---------- */
+
+:root {
+  interpolate-size: allow-keywords;
+}
+.faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 0.5s var(--ease),
+    content-visibility 0.5s allow-discrete;
+}
+.faq[open]::details-content {
+  block-size: auto;
+}
+.faq .faq-icon {
+  transition: transform 0.4s var(--ease);
+}
+.faq[open] .faq-icon {
+  transform: rotate(45deg);
 }
 
 /* ---------- Marquee ---------- */
