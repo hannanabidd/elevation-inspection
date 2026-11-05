@@ -1,6 +1,5 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import { PeakMark } from "@/components/brand";
 import { Check } from "@/components/icons";
 import { Button, Container } from "@/components/ui";
 import inspection01 from "@/public/images/inspection01.png";
@@ -28,8 +27,8 @@ const photo = photos.kitchen;
 
 /*
   Opening banner, laid out like the back of the business card:
-  a dark diagonal panel with a green stripe holds the tagline, the inspector photo fills
-  the other side, and the peak breaks out at the foot of the diagonal.
+  a dark diagonal panel with a green stripe holds the tagline, and the inspector photo
+  fills the other side.
   Phones: the photo is a band across the top, with the stripe cutting into the text below.
 */
 export function Banner() {
@@ -55,7 +54,7 @@ export function Banner() {
         </div>
       </div>
 
-      {/* Desktop: dark diagonal panel + green stripe + the peak breaking out at its foot */}
+      {/* Desktop: dark diagonal panel + green stripe */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] lg:block">
         <div
           className="slide-in-l absolute inset-0 translate-x-4 bg-green [clip-path:polygon(0_0,100%_0,84%_100%,0_100%)]"
@@ -65,9 +64,6 @@ export function Banner() {
           className="slide-in-l grain absolute inset-0 bg-ink [clip-path:polygon(0_0,100%_0,84%_100%,0_100%)]"
           style={d(160)}
         />
-        <div className="absolute bottom-[-2%] left-[85%] h-[27%] -translate-x-1/2">
-          <PeakMark className="peak-rise h-full w-auto text-green drop-shadow-[0_10px_24px_rgb(0_0_0/0.45)]" style={d(700)} />
-        </div>
       </div>
 
       <Container className="relative">

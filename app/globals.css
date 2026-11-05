@@ -388,7 +388,7 @@ body {
   }
 }
 
-/* Home banner: card-back panel slides in from the left, the peak rises into place */
+/* Home banner: card-back panel slides in from the left */
 .slide-in-l {
   animation: slide-in-l 1.1s var(--ease) both;
   animation-delay: var(--d, 0ms);
@@ -396,16 +396,6 @@ body {
 @keyframes slide-in-l {
   from {
     transform: translateX(-105%);
-  }
-}
-.peak-rise {
-  animation: peak-rise 1.3s var(--ease) both;
-  animation-delay: var(--d, 0ms);
-}
-@keyframes peak-rise {
-  from {
-    opacity: 0;
-    transform: translateY(35%);
   }
 }
 
