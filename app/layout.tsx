@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     "Twice-a-year structural inspections for short-term rentals in Sevierville, Pigeon Forge and Gatlinburg, backed by engineers. Catch small problems before they become big repairs.",
 };
 
-// Runs before paint: picks the saved theme (or the system one) so there is no flash,
+// Runs before paint: light by default, or the visitor's saved choice from the toggle, so there is no flash,
 // and marks JS as available so scroll animations can start hidden.
-const themeScript = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}d.dataset.theme=t}catch(e){d.dataset.theme='light'}})();`;
+const themeScript = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(t!=='dark'){t='light'}d.dataset.theme=t}catch(e){d.dataset.theme='light'}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
