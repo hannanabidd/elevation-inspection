@@ -58,19 +58,13 @@ export function CtaBand({
   const img = photos[photo];
   return (
     <section data-theme="dark" className="grain relative overflow-hidden bg-ink-3 text-fg lg:flex lg:min-h-96 lg:items-center">
-      <InView
-        className="relative h-44 sm:h-56 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[50%]"
-        threshold={0.2}
-      >
+      <div className="relative h-44 sm:h-56 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[50%]">
         {/* Green stripe peeking out along the diagonal (desktop) */}
         <div
           aria-hidden="true"
-          className="rv rv-r absolute inset-0 hidden -translate-x-4 bg-green [clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)] lg:block"
+          className="absolute inset-0 hidden -translate-x-4 bg-green [clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)] lg:block"
         />
-        <div
-          className="rv rv-r absolute inset-0 overflow-hidden lg:[clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)]"
-          style={{ ["--d" as string]: "100ms" }}
-        >
+        <div className="absolute inset-0 overflow-hidden lg:[clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)]">
           <Image
             src={img.src}
             alt={img.alt}
@@ -84,7 +78,7 @@ export function CtaBand({
           <div className="absolute inset-0 -translate-y-2 bg-green [clip-path:polygon(0_70%,100%_0,100%_100%,0_100%)]" />
           <div className="grain absolute inset-0 bg-ink-3 [clip-path:polygon(0_70%,100%_0,100%_100%,0_100%)]" />
         </div>
-      </InView>
+      </div>
 
       <Container className="relative w-full">
         <InView className="pt-8 pb-14 sm:pt-10 sm:pb-16 lg:max-w-[46%] lg:py-24">

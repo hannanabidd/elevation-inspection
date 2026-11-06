@@ -44,7 +44,7 @@ export function Banner() {
           fetchPriority="high"
           placeholder="blur"
           sizes="(min-width: 1024px) 52vw, 100vw"
-          className={`photo-in object-cover ${photo.position}`}
+          className={`object-cover ${photo.position}`}
         />
 
         {/* Phones: diagonal stripe into the dark text area */}
@@ -56,14 +56,8 @@ export function Banner() {
 
       {/* Desktop: dark diagonal panel + green stripe */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 hidden w-[58%] lg:block">
-        <div
-          className="slide-in-l absolute inset-0 translate-x-4 bg-green [clip-path:polygon(0_0,100%_0,84%_100%,0_100%)]"
-          style={d(80)}
-        />
-        <div
-          className="slide-in-l grain absolute inset-0 bg-ink [clip-path:polygon(0_0,100%_0,84%_100%,0_100%)]"
-          style={d(160)}
-        />
+        <div className="absolute inset-0 translate-x-4 bg-green [clip-path:polygon(0_0,100%_0,84%_100%,0_100%)]" />
+        <div className="grain absolute inset-0 bg-ink [clip-path:polygon(0_0,100%_0,84%_100%,0_100%)]" />
       </div>
 
       <Container className="relative">

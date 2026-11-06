@@ -75,7 +75,7 @@ export default function ContactPage() {
             </Row>
           </InView>
 
-          <InView className="rv rv-r lg:col-span-7" threshold={0.15}>
+          <InView className="lg:col-span-7" threshold={0.15}>
             {/* Double frame, like the logo */}
             <div className="h-full border-[1.5px] border-line-strong p-1.5">
               <div className="relative h-full min-h-[22rem] overflow-hidden border-2 border-green bg-bg-alt">

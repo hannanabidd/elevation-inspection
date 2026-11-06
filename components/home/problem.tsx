@@ -43,12 +43,11 @@ export function Problem() {
               {/* Green slash between the photos (a little wider than the gap; the photos sit on top) */}
               <div
                 aria-hidden="true"
-                className="rv absolute inset-0 bg-green [clip-path:polygon(53.6%_0,57.5%_0,46.4%_100%,42.5%_100%)]"
-                style={d(350)}
+                className="absolute inset-0 bg-green [clip-path:polygon(53.6%_0,57.5%_0,46.4%_100%,42.5%_100%)]"
               />
 
               {/* Before */}
-              <div className="rv rv-l absolute inset-y-0 left-0 w-[55.56%] [clip-path:polygon(0_0,98%_0,78%_100%,0_100%)]">
+              <div className="absolute inset-y-0 left-0 w-[55.56%] [clip-path:polygon(0_0,98%_0,78%_100%,0_100%)]">
                 <Image
                   src={deckBefore}
                   alt="A cabin deck with a hot tub, surrounded by trees."
@@ -59,10 +58,7 @@ export function Problem() {
               </div>
 
               {/* After */}
-              <div
-                className="rv rv-r absolute inset-y-0 right-0 w-[55.56%] [clip-path:polygon(22%_0,100%_0,100%_100%,2%_100%)]"
-                style={d(150)}
-              >
+              <div className="absolute inset-y-0 right-0 w-[55.56%] [clip-path:polygon(22%_0,100%_0,100%_100%,2%_100%)]">
                 <Image
                   src={deckAfter}
                   alt="The same hot tub tipped over on the ground after the deck under it collapsed."
@@ -81,10 +77,7 @@ export function Problem() {
 
               {/* The four bolts, right on the slash */}
               <div className="absolute top-full left-[44.44%] z-10 w-[34%] -translate-x-1/2 -translate-y-[60%]">
-                <div
-                  className="pop rounded-full bg-green p-[4%] shadow-[0_18px_40px_-14px_rgba(0,0,0,0.5)]"
-                  style={d(800)}
-                >
+                <div className="rounded-full bg-green p-[4%] shadow-[0_18px_40px_-14px_rgba(0,0,0,0.5)]">
                   <div className="relative aspect-square overflow-hidden rounded-full">
                     <Image
                       src={fourBolts}
