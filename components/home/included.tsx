@@ -1,6 +1,7 @@
+import type { CSSProperties } from "react";
 import {
-  Camera,
   CalendarCheck,
+  Camera,
   HardHat,
   Lightning,
   Report,
@@ -8,7 +9,7 @@ import {
   type IconType,
 } from "@/components/icons";
 import { InView } from "@/components/motion";
-import { Container, Label } from "@/components/ui";
+import { Container } from "@/components/ui";
 
 const features: { icon: IconType; title: string; text: string }[] = [
   { icon: CalendarCheck, title: "Two inspections a year", text: "Thorough structural checks every six months." },
@@ -19,62 +20,43 @@ const features: { icon: IconType; title: string; text: string }[] = [
     title: "Photo history",
     text: "A photo record of your property over time, stored in your online portal.",
   },
-  {
-    icon: HardHat,
-    title: "Engineering review",
-    text: "Your first inspection and any concerns reviewed by engineers.",
-  },
+  { icon: HardHat, title: "Engineering review", text: "Your first inspection and any concerns reviewed by engineers." },
   { icon: Lightning, title: "Priority scheduling", text: "Members get first access to scheduling and support." },
   { icon: Tag, title: "Member pricing on repairs", text: "Save when something does need work." },
 ];
 
+const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as CSSProperties;
+
+/* Copy doc section 5. */
 export function Included() {
   return (
-    <section className="relative overflow-hidden bg-bg py-24 lg:py-32">
-      <Container className="grid gap-16 lg:grid-cols-12 lg:gap-14">
-        <InView className="lg:sticky lg:top-32 lg:col-span-5 lg:self-start">
-          <div className="rv">
-            <Label>Membership</Label>
-          </div>
-          <h2
-            className="rv text-[clamp(2.1rem,4.4vw,3.6rem)] leading-[1.02] font-extrabold tracking-[-0.02em] uppercase"
-            style={{ ["--d" as string]: "80ms" }}
-          >
-            Protect your investment. Protect your <span className="hl-v">reviews.</span>
+    <section className="bg-bg py-20 lg:py-28">
+      <Container>
+        <InView className="max-w-3xl">
+          <h2 className="rv text-[clamp(2rem,4vw,3.2rem)] leading-[1.04] font-extrabold tracking-[-0.02em] uppercase">
+            Protect your investment. Protect your reviews.
           </h2>
-        </InView>
-
-        <InView className="lg:col-span-7 lg:pt-4" threshold={0.1}>
-          <p className="rv label text-muted">Every membership includes:</p>
-          <ul className="mt-6">
-            {features.map(({ icon: Icon, ...f }, i) => (
-              <li
-                key={f.title}
-                className="rv group grid grid-cols-[auto_1fr_auto] items-start gap-5 border-t border-line py-7 last:border-b sm:gap-7"
-                style={{ ["--d" as string]: `${120 + i * 110}ms` }}
-              >
-                <span className="relative flex size-12 items-center justify-center bg-green text-ink transition-transform duration-500 group-hover:-rotate-6">
-                  <span className="pop" style={{ ["--d" as string]: `${380 + i * 110}ms` }}>
-                    <Icon className="size-6" />
-                  </span>
-                </span>
-                <div>
-                  <h3 className="text-lg font-extrabold tracking-[0.01em] uppercase sm:text-xl">
-                    {f.title}
-                  </h3>
-                  <p className="mt-1.5 text-lg leading-relaxed text-muted">{f.text}</p>
-                </div>
-                <span className="hidden pt-1 font-display text-sm font-bold text-muted tabular-nums sm:block">
-                  0{i + 1}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="rv mt-8 text-muted" style={{ ["--d" as string]: "800ms" }}>
-            Also available: preventive maintenance with TrueDeck and volume discounts for multiple
-            properties.
+          <p className="rv mt-4 text-lg text-muted" style={d(80)}>
+            Every membership includes:
           </p>
         </InView>
+        <InView as="ul" className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map(({ icon: Icon, title, text }, i) => (
+            <li key={title} className="rv flex gap-4" style={d(i * 70)}>
+              <span className="flex size-11 shrink-0 items-center justify-center bg-green text-ink">
+                <Icon className="size-5" />
+              </span>
+              <div>
+                <h3 className="font-display text-lg font-extrabold uppercase">{title}</h3>
+                <p className="mt-1 leading-relaxed text-muted">{text}</p>
+              </div>
+            </li>
+          ))}
+        </InView>
+        <p className="mt-12 text-muted">
+          Also available: preventive maintenance with TrueDeck and volume discounts for multiple
+          properties.
+        </p>
       </Container>
     </section>
   );

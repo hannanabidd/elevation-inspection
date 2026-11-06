@@ -80,13 +80,13 @@ export function Banner() {
           >
             The Difference is <span className="font-extrabold text-green">Knowing.</span>
           </h1>
-          <div className="load-up mt-7 flex items-start gap-4" style={d(480)}>
-            <span aria-hidden="true" className="mt-3.5 h-[3px] w-12 shrink-0 bg-green" />
-            <p className="max-w-md text-lg leading-relaxed text-muted sm:text-xl">
-              Twice-a-year structural inspections for short-term rentals in Sevier County, backed
-              by a team of engineers.
-            </p>
-          </div>
+          <p
+            className="load-up mt-7 max-w-md text-lg leading-relaxed text-muted sm:text-xl"
+            style={d(480)}
+          >
+            Twice-a-year structural inspections for short-term rentals in Sevier County, backed by
+            a team of engineers.
+          </p>
           <div className="load-up mt-9 grid grid-cols-2 gap-3 sm:flex" style={d(600)}>
             <Button href="/register" arrow className="max-sm:px-4">
               Register Now

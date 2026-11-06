@@ -1,53 +1,93 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { site } from "@/lib/site";
-import { PeakMark, Ridges } from "./brand";
+import windowsPhoto from "@/public/images/inspection01.png";
+import kitchenPhoto from "@/public/images/inspeaction02.png";
+import windowCloseupPhoto from "@/public/images/inspection03.png";
+import waterHeaterPhoto from "@/public/images/inspection04.png";
 import { Phone } from "./icons";
 import { InView } from "./motion";
 import { Button, Container } from "./ui";
 
 /*
-  Closing call to action on every page: a compact take on the back of the business card.
-  Narrow dark diagonal panel with a green stripe and the peak on the left, then an italic
-  heading whose last words are green (pass them as `accent`).
+  Inspector photos for the closing band, one per page so no photo repeats on the site
+  (the kitchen shot is the home banner). Positions keep the head, flashlight and shirt logo
+  in frame at each crop: a short band on phones, a wide diagonal panel on desktop.
+*/
+const photos = {
+  windows: {
+    src: windowsPhoto,
+    alt: "An Elevation Inspections inspector checking a window with a flashlight and tablet.",
+    position: "object-[55%_25%] lg:object-[52%_30%]",
+  },
+  windowCloseup: {
+    src: windowCloseupPhoto,
+    alt: "An Elevation Inspections inspector checking a window frame with a flashlight, tablet in hand.",
+    position: "object-[50%_8%]",
+  },
+  waterHeater: {
+    src: waterHeaterPhoto,
+    alt: "An Elevation Inspections inspector checking the pipes above a water heater with a flashlight.",
+    position: "object-[50%_4%]",
+  },
+  kitchen: {
+    src: kitchenPhoto,
+    alt: "An Elevation Inspections inspector checking the plumbing under a kitchen sink with a flashlight.",
+    position: "object-[50%_6%] lg:object-[56%_8%]",
+  },
+};
+
+/*
+  Closing call to action: an inspector photo on the right behind a diagonal
+  cut and green stripe, mirroring the home banner. On phones the photo is a band above the text.
+  The heading is italic with its last words in green (pass them as `accent`).
 */
 export function CtaBand({
   lead,
   accent,
   text,
   secondary = "call",
-  panel = true,
+  photo = "windows",
 }: {
   lead: ReactNode;
   accent: ReactNode;
   text?: ReactNode;
   secondary?: "call" | "contact";
-  /* false = no diagonal panel or peak (the home page already opens with them) */
-  panel?: boolean;
+  photo?: keyof typeof photos;
 }) {
+  const img = photos[photo];
   return (
-    <section data-theme="dark" className="grain relative overflow-hidden bg-ink-3 text-fg">
-      <Ridges className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full opacity-80 lg:h-28" />
+    <section data-theme="dark" className="grain relative overflow-hidden bg-ink-3 text-fg lg:flex lg:min-h-96 lg:items-center">
+      <InView
+        className="relative h-44 sm:h-56 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[50%]"
+        threshold={0.2}
+      >
+        {/* Green stripe peeking out along the diagonal (desktop) */}
+        <div
+          aria-hidden="true"
+          className="rv rv-r absolute inset-0 hidden -translate-x-4 bg-green [clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)] lg:block"
+        />
+        <div
+          className="rv rv-r absolute inset-0 overflow-hidden lg:[clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)]"
+          style={{ ["--d" as string]: "100ms" }}
+        >
+          <Image
+            src={img.src}
+            alt={img.alt}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className={`object-cover ${img.position}`}
+          />
+        </div>
+        {/* Phones: diagonal stripe into the dark text area */}
+        <div aria-hidden="true" className="absolute inset-x-0 -bottom-px h-10 lg:hidden">
+          <div className="absolute inset-0 -translate-y-2 bg-green [clip-path:polygon(0_70%,100%_0,100%_100%,0_100%)]" />
+          <div className="grain absolute inset-0 bg-ink-3 [clip-path:polygon(0_70%,100%_0,100%_100%,0_100%)]" />
+        </div>
+      </InView>
 
-      {panel && (
-        <InView className="pointer-events-none absolute inset-y-0 left-0 hidden w-[30%] lg:block" threshold={0.2}>
-          <div
-            aria-hidden="true"
-            className="rv rv-l absolute inset-0 translate-x-4 bg-green [clip-path:polygon(0_0,100%_0,64%_100%,0_100%)]"
-          />
-          <div
-            aria-hidden="true"
-            className="rv rv-l grain absolute inset-0 bg-ink [clip-path:polygon(0_0,100%_0,64%_100%,0_100%)]"
-            style={{ ["--d" as string]: "100ms" }}
-          />
-          <PeakMark
-            className="rv absolute bottom-[-4%] left-[16%] h-[78%] w-auto text-green"
-            style={{ ["--d" as string]: "400ms" }}
-          />
-        </InView>
-      )}
-
-      <Container className="relative">
-        <InView className={`py-14 sm:py-16 lg:py-20 ${panel ? "lg:ml-[30%]" : ""}`}>
+      <Container className="relative w-full">
+        <InView className="pt-8 pb-14 sm:pt-10 sm:pb-16 lg:max-w-[46%] lg:py-24">
           <h2 className="rv max-w-3xl text-[clamp(2rem,4vw,3.4rem)] leading-[1.04] font-medium tracking-[-0.02em] italic">
             {lead} <span className="font-extrabold text-green">{accent}</span>
           </h2>

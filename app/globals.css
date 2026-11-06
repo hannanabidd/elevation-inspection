@@ -272,7 +272,7 @@ body {
   transform: none;
 }
 
-/* ---------- Hero triptych: three photos split by green diagonals ---------- */
+/* ---------- Photo strip: three photos split by green diagonals (home) ---------- */
 
 .tri {
   --slant: 34px;
@@ -293,7 +293,6 @@ body {
   min-width: 0;
   overflow: hidden;
   clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
-  transition: flex-grow 0.8s var(--ease);
 }
 .tri-panel:first-child {
   clip-path: polygon(0 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
@@ -307,45 +306,6 @@ body {
 .tri-media {
   position: absolute;
   inset: 0;
-  animation: tri-wipe 1.2s var(--ease) both;
-  animation-delay: calc(var(--i) * 220ms + 200ms);
-}
-.tri-media img {
-  animation: tri-zoom 2.6s var(--ease) both;
-  animation-delay: calc(var(--i) * 220ms + 200ms);
-  transition: transform 1.2s var(--ease);
-}
-.tri-panel:hover .tri-media img {
-  transform: scale(1.06);
-}
-@keyframes tri-wipe {
-  from {
-    clip-path: inset(100% 0 0 0);
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-@keyframes tri-zoom {
-  from {
-    scale: 1.3;
-  }
-  to {
-    scale: 1;
-  }
-}
-@media (hover: hover) {
-  .tri:hover .tri-panel {
-    flex-grow: 0.85;
-  }
-  .tri .tri-panel:hover {
-    flex-grow: 1.5;
-  }
-  .hero:has([data-w="1"]:hover) .tri-panel[data-p="1"],
-  .hero:has([data-w="2"]:hover) .tri-panel[data-p="2"],
-  .hero:has([data-w="3"]:hover) .tri-panel[data-p="3"] {
-    flex-grow: 1.5;
-  }
 }
 
 /* Fade-up used by the hero on load */

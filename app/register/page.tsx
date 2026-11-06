@@ -21,7 +21,6 @@ export default function RegisterPage() {
   return (
     <>
       <PageHero
-        label="Register"
         title="Register your property."
         intro={
           <p>

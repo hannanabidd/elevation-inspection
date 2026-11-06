@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { footerNav, site } from "@/lib/site";
-import { Ridges } from "./brand";
 import { Mail, MapPin, Phone } from "./icons";
 import { Logo } from "./logo";
 import { Container } from "./ui";
@@ -10,7 +9,6 @@ export function SiteFooter() {
   return (
     <footer data-theme="dark" className="grain relative overflow-hidden bg-ink text-muted">
       <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-green" />
-      <Ridges className="pointer-events-none absolute inset-x-0 bottom-0 h-48 w-full" />
 
       <Container className="relative grid gap-12 pt-20 pb-14 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-5">

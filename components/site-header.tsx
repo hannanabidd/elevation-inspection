@@ -103,8 +103,6 @@ export function SiteHeader() {
           </div>
         </Container>
 
-        {/* Scroll progress, in browsers that support scroll-driven animation */}
-        <span aria-hidden="true" className="progress absolute inset-x-0 -bottom-px h-[2px] bg-green" />
       </header>
 
       {/* Mobile menu */}

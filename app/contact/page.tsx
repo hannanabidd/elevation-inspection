@@ -4,7 +4,7 @@ import { ContactForm } from "@/components/contact/contact-form";
 import { Mail, MapIcon, MapPin, Phone, type IconType } from "@/components/icons";
 import { InView } from "@/components/motion";
 import { PageHero } from "@/components/page-hero";
-import { ArrowLink, Button, Container, Label } from "@/components/ui";
+import { ArrowLink, Button, Container } from "@/components/ui";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -43,7 +43,6 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
-        label="Contact"
         title="Get in touch."
         intro={"Questions about membership, pricing or a property? We’re happy to help."}
       />
@@ -103,7 +102,7 @@ export default function ContactPage() {
           <div className="lg:col-span-8">
             <div className="relative bg-surface p-6 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.25)] sm:p-10 lg:p-12">
               <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-green" />
-              <Label>Send a message</Label>
+              <h2 className="mb-8 font-display text-2xl font-extrabold uppercase">Send a message</h2>
               <ContactForm />
             </div>
           </div>
