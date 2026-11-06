@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CtaBand } from "@/components/cta-band";
 import { HouseLine, UsersThree } from "@/components/icons";
+import { Timeline } from "@/components/about/timeline";
 import { InView } from "@/components/motion";
 import { PageHero } from "@/components/page-hero";
 import { ArrowLink, Container } from "@/components/ui";
@@ -50,6 +51,11 @@ export default function AboutPage() {
               bad news.
             </p>
           </InView>
+
+          {/* The story in one picture: the green "Now" pin slides from "after the damage" back to "before" */}
+          <div className="mt-16 lg:mt-20">
+            <Timeline />
+          </div>
         </Container>
       </section>
 

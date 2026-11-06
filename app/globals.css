@@ -377,6 +377,51 @@ body {
   }
 }
 
+/* Home "How it works": a green line runs from step to step and each number lights up as it arrives.
+   Without JS everything shows lit. */
+.step-num {
+  background: var(--color-green);
+  color: var(--color-ink);
+}
+.js .step-num {
+  background: var(--color-ink);
+  color: var(--color-green);
+  transition:
+    background-color 0.35s var(--ease),
+    color 0.35s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.js[data-theme="dark"] .step-num {
+  background: var(--color-ink-3);
+}
+.js [data-inview="true"] .step-num {
+  background: var(--color-green);
+  color: var(--color-ink);
+  animation: step-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d, 0ms) both;
+}
+@keyframes step-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.step-line {
+  transform-origin: left center;
+  transition: transform 0.7s cubic-bezier(0.45, 0, 0.55, 1);
+  transition-delay: var(--d, 0ms);
+}
+.js .step-line {
+  transform: scaleX(0);
+}
+.js [data-inview="true"] .step-line {
+  transform: none;
+}
+
 /* About page timeline: the "Now" pin slides back from "after" to "before" */
 .tl-pin {
   left: 12.5%;

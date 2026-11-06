@@ -2,10 +2,10 @@ import { Drop, EyeSlash, PhoneCall, WarningDiamond } from "@/components/icons";
 import { InView } from "@/components/motion";
 
 const stops = [
-  { icon: Drop, title: "It starts small", text: "Clogged gutters, downspouts dumping water at the foundation, poor drainage, a few missing bolts." },
-  { icon: EyeSlash, title: "Nobody catches it", text: "Problems that cost very little to fix, if someone catches them early." },
+  { icon: Drop, title: "It starts small", text: "A clogged gutter, poor drainage, a few missing bolts." },
+  { icon: EyeSlash, title: "Nobody catches it", text: "It costs very little to fix, but no one is looking." },
   { icon: WarningDiamond, title: "Something fails", text: "A cracked foundation, sagging framing or a failing deck." },
-  { icon: PhoneCall, title: "The call after", text: "By the time engineers are brought in, it’s expensive and extensive." },
+  { icon: PhoneCall, title: "The call after", text: "By the time engineers get the call, it’s expensive and extensive." },
 ];
 
 /*
