@@ -51,7 +51,7 @@ export async function registerProperty(_prev: FormState, fd: FormData): Promise<
   if (v.propertyType && !oneOf(propertyTypes, v.propertyType)) errors.propertyType = "Choose a property type.";
   if (v.propertyCount && (!/^\d+$/.test(v.propertyCount) || Number(v.propertyCount) < 1))
     errors.propertyCount = "Enter a whole number, like 1 or 3.";
-  if (v.billing && !oneOf(billingOptions, v.billing)) errors.billing = "Choose monthly or annual.";
+  if (v.billing && !oneOf(billingOptions, v.billing)) errors.billing = "Choose yearly or the payment plan.";
 
   if (Object.keys(errors).length) return { status: "error", errors, values: v };
 

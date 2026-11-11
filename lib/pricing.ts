@@ -1,24 +1,14 @@
 /*
-  PLACEHOLDER price list. The size bands and prices are waiting on Rebekah's price list.
-  Replace the XX / XXX prices (and the bands, if they change); `upTo` drives the
-  "your home" highlight on the Pricing page.
+  Membership pricing and terms, from Rebekah's notes and the Inspection Agreement.
+  There's no public price list: each home is priced by its square footage, and the team
+  gives the exact price after registration.
+
+  - To join: a one-time startup deposit equal to the yearly fee, plus the first year,
+    due when the agreement is signed (Agreement 4.a.i).
+  - Renewal years: pay yearly, or monthly on the payment plan: yearly fee / 12, plus a
+    monthly administration fee (Agreement 4.a.ii; fee amount from Rebekah).
+  - Administrative charge (refunds and transfers): the greater of $100 or one-twelfth of the
+    yearly fee (Agreement 3.d.iii and 14).
 */
-export type PriceBand = {
-  label: string;
-  upTo: number | null; // null = top band
-  monthly: string | null; // null = "Contact us"
-  annual: string | null;
-};
-
-export const priceBands: PriceBand[] = [
-  { label: "Up to 1,500", upTo: 1500, monthly: "$XX", annual: "$XXX" },
-  { label: "1,501 to 2,500", upTo: 2500, monthly: "$XX", annual: "$XXX" },
-  { label: "2,501 to 3,500", upTo: 3500, monthly: "$XX", annual: "$XXX" },
-  { label: "3,501 to 5,000", upTo: 5000, monthly: "$XX", annual: "$XXX" },
-  { label: "Over 5,000", upTo: null, monthly: null, annual: null },
-];
-
-export function bandFor(sqft: number) {
-  const i = priceBands.findIndex((b) => b.upTo === null || sqft <= b.upTo);
-  return i === -1 ? priceBands.length - 1 : i;
-}
+export const PLAN_ADMIN_FEE = 25; // per month, on the payment plan
+export const ADMIN_CHARGE_MIN = 100; // or one-twelfth of the yearly fee, whichever is greater

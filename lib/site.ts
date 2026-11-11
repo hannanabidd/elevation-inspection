@@ -28,7 +28,7 @@ export const pending = {
 
 export const cities = ["Sevierville", "Pigeon Forge", "Gatlinburg", "Other"] as const;
 export const propertyTypes = ["Cabin", "House", "Condo", "Other"] as const;
-export const billingOptions = ["Monthly", "Annual"] as const;
+export const billingOptions = ["Pay yearly", "Payment plan (monthly)"] as const;
 
 export const mainNav = [
   { href: "/", label: "Home" },

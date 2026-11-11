@@ -1,39 +1,35 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { site } from "@/lib/site";
-import windowsPhoto from "@/public/images/inspection01.png";
-import kitchenPhoto from "@/public/images/inspeaction02.png";
-import windowCloseupPhoto from "@/public/images/inspection03.png";
-import waterHeaterPhoto from "@/public/images/inspection04.png";
+import deckRailingPhoto from "@/public/images/about_CTA.png";
+import crawlspacePhoto from "@/public/images/home_CTA.png";
+import drainagePhoto from "@/public/images/pricing_CTA.png";
 import { Phone } from "./icons";
 import { InView } from "./motion";
 import { Button, Container } from "./ui";
 
 /*
-  Inspector photos for the closing band, one per page so no photo repeats on the site
-  (the kitchen shot is the home banner). Positions keep the head, flashlight and shirt logo
-  in frame at each crop: a short band on phones, a wide diagonal panel on desktop.
+  Inspector photos for the closing band, one per page (all outdoors, where the inspections
+  happen). Positions keep the head, shirt logo and flashlight in frame at each crop: a short
+  band on phones, a wide diagonal panel on desktop.
+  The photo area is kept at the photos' own 3:2 shape (phones: aspect ratio; desktop: 42% of
+  the width by at least 28% of the width tall), so each photo shows top to bottom.
 */
 const photos = {
-  windows: {
-    src: windowsPhoto,
-    alt: "An Elevation Inspections inspector checking a window with a flashlight and tablet.",
-    position: "object-[55%_25%] lg:object-[52%_30%]",
+  crawlspace: {
+    src: crawlspacePhoto,
+    alt: "An Elevation Inspections inspector kneeling at a cabin's crawlspace door, shining a flashlight inside.",
+    position: "object-[50%_10%] lg:object-[60%_50%]",
   },
-  windowCloseup: {
-    src: windowCloseupPhoto,
-    alt: "An Elevation Inspections inspector checking a window frame with a flashlight, tablet in hand.",
-    position: "object-[50%_8%]",
+  drainage: {
+    src: drainagePhoto,
+    alt: "An Elevation Inspections inspector checking where a downspout drains beside a cabin's stone foundation.",
+    position: "object-[50%_30%] lg:object-[60%_50%]",
   },
-  waterHeater: {
-    src: waterHeaterPhoto,
-    alt: "An Elevation Inspections inspector checking the pipes above a water heater with a flashlight.",
-    position: "object-[50%_4%]",
-  },
-  kitchen: {
-    src: kitchenPhoto,
-    alt: "An Elevation Inspections inspector checking the plumbing under a kitchen sink with a flashlight.",
-    position: "object-[50%_6%] lg:object-[56%_8%]",
+  deckRailing: {
+    src: deckRailingPhoto,
+    alt: "An Elevation Inspections inspector checking the bolted bracket at the base of a deck railing post, with mountains behind.",
+    position: "object-[50%_10%] lg:object-[60%_50%]",
   },
 };
 
@@ -47,7 +43,7 @@ export function CtaBand({
   accent,
   text,
   secondary = "call",
-  photo = "windows",
+  photo = "crawlspace",
 }: {
   lead: ReactNode;
   accent: ReactNode;
@@ -57,8 +53,8 @@ export function CtaBand({
 }) {
   const img = photos[photo];
   return (
-    <section data-theme="dark" className="grain relative overflow-hidden bg-ink-3 text-fg lg:flex lg:min-h-96 lg:items-center">
-      <div className="relative h-44 sm:h-56 lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-[50%]">
+    <section data-theme="dark" className="grain relative overflow-hidden bg-ink-3 text-fg lg:flex lg:min-h-[max(24rem,28vw)] lg:items-center">
+      <div className="relative aspect-[3/2] sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:aspect-auto lg:w-[42%]">
         {/* Green stripe peeking out along the diagonal (desktop) */}
         <div
           aria-hidden="true"
@@ -69,7 +65,7 @@ export function CtaBand({
             src={img.src}
             alt={img.alt}
             fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            sizes="(min-width: 1024px) 42vw, 100vw"
             className={`object-cover ${img.position}`}
           />
         </div>

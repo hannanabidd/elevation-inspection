@@ -2,28 +2,19 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { Check } from "@/components/icons";
 import { Button, Container } from "@/components/ui";
-import inspection01 from "@/public/images/inspection01.png";
-import inspection02 from "@/public/images/inspeaction02.png";
+import bannerPhoto from "@/public/images/home_banner.png";
 
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as CSSProperties;
 
 /*
-  Banner photos. To compare, change `photo` below to photos.windows or photos.kitchen.
-  `position` keeps the inspector in view: phones (top band) first, then desktop (right side).
+  Banner photo. `position` keeps the inspector in view: phones (top band) first, then desktop
+  (right side, where the dark panel's diagonal covers the photo's top-left corner).
 */
-const photos = {
-  kitchen: {
-    src: inspection02,
-    alt: "An Elevation Inspections inspector checking the plumbing under a kitchen sink with a flashlight and tablet.",
-    position: "object-[50%_24%] lg:object-[44%_18%]",
-  },
-  windows: {
-    src: inspection01,
-    alt: "An Elevation Inspections inspector checking a window with a flashlight and tablet.",
-    position: "object-[55%_22%] lg:object-[50%_30%]",
-  },
+const photo = {
+  src: bannerPhoto,
+  alt: "An Elevation Inspections inspector shining a flashlight on the beams under an elevated cabin deck, tablet in hand.",
+  position: "object-[50%_25%] lg:object-[35%_50%]",
 };
-const photo = photos.kitchen;
 
 /*
   Opening banner, laid out like the back of the business card:

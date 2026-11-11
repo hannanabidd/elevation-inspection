@@ -134,7 +134,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <CtaBand lead={"Let’s catch it"} accent="early." secondary="contact" photo="windowCloseup" />
+      <CtaBand lead={"Let’s catch it"} accent="early." secondary="contact" photo="deckRailing" />
     </>
   );
 }
