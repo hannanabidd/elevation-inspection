@@ -5,7 +5,8 @@ import { Check, Phone } from "@/components/icons";
 import { InView } from "@/components/motion";
 import { PageHero } from "@/components/page-hero";
 import { ArrowLink, Button, Container } from "@/components/ui";
-import { ADMIN_CHARGE_MIN, PLAN_ADMIN_FEE } from "@/lib/pricing";
+import { PriceTable } from "@/components/pricing/price-table";
+import { ADMIN_CHARGE_MIN, PLAN_ADMIN_FEE, money, startingPrice } from "@/lib/pricing";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -25,9 +26,8 @@ const includes = [
 ];
 
 /*
-  Pricing as Rebekah described it, and terms from the Inspection Agreement (section numbers in
-  the comments). There's no public price list: each home is priced by its square footage, and
-  the team gives the exact price after registration.
+  Pricing from Rebekah's price list and notes (lib/pricing.ts), and terms from the Inspection
+  Agreement (section numbers in the comments).
   TODO: the startup deposit comes from Rebekah's notes; it isn't in the agreement yet.
 */
 const payment = [
@@ -51,7 +51,7 @@ const adminCharge = `$${ADMIN_CHARGE_MIN} or one-twelfth of your yearly fee, whi
 const faqs = [
   {
     q: "How much does a membership cost?",
-    a: "It depends on your home’s square footage. Register or give us a call, and we’ll confirm your home’s size and give you your exact price.",
+    a: `It depends on your home’s square footage, starting at ${money(startingPrice)} a year for homes up to 1,500 sq ft. See the price table above. Homes over 8,000 sq ft are priced individually, so give us a call.`,
   },
   {
     q: "How do you measure square footage?",
@@ -115,20 +115,18 @@ export default function PricingPage() {
         intro="One membership. Two inspections a year. Your price depends on the square footage of the home."
       />
 
-      {/* Your price + how payment works */}
+      {/* Price table + how payment works */}
       <section className="bg-bg py-16 lg:py-24">
-        <Container className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
-          <InView className="lg:col-span-6 lg:pt-4">
-            <h2 className={`rv ${heading}`}>Get your exact price</h2>
-            <p className="rv mt-6 text-lg leading-relaxed text-muted" style={d(60)}>
-              Every membership is priced by the home&rsquo;s square footage. Register (it takes
-              about two minutes) and our team will confirm your home&rsquo;s size and give you your
-              exact price.
+        <Container className="grid items-start gap-12 lg:grid-cols-12 lg:gap-14">
+          <InView className="lg:col-span-7">
+            <h2 className={`rv ${heading}`}>Membership pricing</h2>
+            <p className="rv mt-4 text-lg leading-relaxed text-muted" style={d(60)}>
+              Find your home&rsquo;s size below. Not sure of your square footage? Give us your best
+              estimate and we&rsquo;ll confirm it with you.
             </p>
-            <p className="rv mt-4 text-lg leading-relaxed text-muted" style={d(120)}>
-              Not sure of your square footage? Give us your best estimate and we&rsquo;ll confirm it
-              with you.
-            </p>
+            <div className="rv mt-8" style={d(120)}>
+              <PriceTable />
+            </div>
             <div className="rv mt-8 flex flex-col gap-3 sm:flex-row" style={d(180)}>
               <Button href="/register" arrow>
                 Register Now
@@ -143,7 +141,7 @@ export default function PricingPage() {
             </p>
           </InView>
 
-          <div data-theme="dark" className="grain relative bg-ink text-fg lg:col-span-6">
+          <div data-theme="dark" className="grain relative bg-ink text-fg lg:sticky lg:top-28 lg:col-span-5">
             {/* Green edge, like the business card */}
             <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-green" />
             <InView className="px-6 py-8 sm:px-10 sm:py-10">

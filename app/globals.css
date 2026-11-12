@@ -412,7 +412,7 @@ body {
 }
 .step-line {
   transform-origin: left center;
-  transition: transform 0.7s cubic-bezier(0.45, 0, 0.55, 1);
+  transition: transform 0.25s cubic-bezier(0.45, 0, 0.55, 1);
   transition-delay: var(--d, 0ms);
 }
 .js .step-line {

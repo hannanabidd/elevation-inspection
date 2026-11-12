@@ -1,5 +1,6 @@
 import { InView } from "@/components/motion";
 import { ArrowLink, Button } from "@/components/ui";
+import { money, startingPrice } from "@/lib/pricing";
 
 const heading = "rv text-[clamp(1.9rem,3.4vw,2.8rem)] leading-[1.05] font-extrabold tracking-[-0.02em] uppercase";
 
@@ -26,7 +27,7 @@ export function ManagersAndPricing() {
             <h2 className={heading}>Simple pricing based on your home&rsquo;s size.</h2>
             <p className="rv mt-5 text-lg leading-relaxed text-ink/80">
               One membership, two inspections a year. Your price depends on your home&rsquo;s
-              square footage.
+              square footage, starting at {money(startingPrice)} a year.
             </p>
             <div className="rv mt-8">
               <Button href="/pricing" variant="ink" arrow>

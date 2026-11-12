@@ -23,8 +23,9 @@ const steps = [
 
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` }) as CSSProperties;
 
-/* When step i lights up. The line to the next step starts right after and takes 0.7s. */
-const at = (i: number) => 250 + i * 800;
+/* When step i lights up. The line to the next step starts right after and takes ~0.25s,
+   so the whole run is done in about 1.2s. The text doesn't wait for it. */
+const at = (i: number) => 80 + i * 300;
 
 /*
   Copy doc section 3. Plays like a progress tracker when it scrolls into view: step 01 lights up,
@@ -39,7 +40,7 @@ export function HowItWorks() {
             How it works
           </h2>
         </InView>
-        <InView as="ol" className="mt-12 grid gap-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-8" threshold={0.4}>
+        <InView as="ol" className="mt-12 grid gap-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-8" threshold={0.15}>
           {steps.map((step, i) => (
             <li key={step.title}>
               <div className="flex items-center gap-4">
@@ -50,12 +51,12 @@ export function HowItWorks() {
                   0{i + 1}
                 </span>
                 {i < steps.length - 1 && (
-                  <span aria-hidden="true" className="relative hidden h-[3px] flex-1 bg-line-strong lg:block">
-                    <span className="step-line absolute inset-0 bg-green" style={d(at(i) + 100)} />
+                  <span aria-hidden="true" className="relative hidden h-0.75 flex-1 bg-line-strong lg:block">
+                    <span className="step-line absolute inset-0 bg-green" style={d(at(i) + 60)} />
                   </span>
                 )}
               </div>
-              <div className="rv" style={d(at(i))}>
+              <div className="rv" style={d(i * 80)}>
                 <h3 className="mt-6 text-xl font-extrabold uppercase">{step.title}</h3>
                 <p className="mt-2 leading-relaxed text-muted">{step.text}</p>
               </div>
