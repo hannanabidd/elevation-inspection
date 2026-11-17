@@ -34,7 +34,7 @@ export async function registerProperty(_prev: FormState, fd: FormData): Promise<
     sqft: read(fd, "sqft", 12),
     propertyType: read(fd, "propertyType", 40),
     propertyCount: read(fd, "propertyCount", 6),
-    billing: read(fd, "billing", 20),
+    billing: read(fd, "billing", 40),
     referredBy: oneLine(read(fd, "referredBy", 150)),
     notes: read(fd, "notes", 2000),
   };

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "email:test": "node --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/test-email.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.10",
